@@ -90,55 +90,44 @@ img, video {
     #messageInputContainer button { font-size: 42px; padding: 10px 12px; margin: 0 15px; }
 }
 @media screen and (max-width:1000px){
-    /* Contenitore unico per input + pulsanti */
     #messageInputContainer {
-        top: 70%;              /* più in basso */
+        top: 70%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 80%;            /* scala tutto insieme */
+        width: 80%;
     }
-
-    /* Input messaggio */
     #userMessage {
-        width: 100%;           /* scala con il contenitore */
-        font-size: 40px;       /* più leggibile su mobile */
+        width: 100%;
+        font-size: 40px;
         padding: 10px;
-        margin-bottom: 20px;   /* più spazio tra input e pulsanti */
+        margin-bottom: 20px;
     }
-
-    /* Contenitore pulsanti */
     #messageInputContainer button {
-        font-size: 42px;       /* scala pulsanti */
+        font-size: 42px;
         padding: 20px 30px;
-        margin: 0 25px;        /* più separati */
+        margin: 0 25px;
         cursor: pointer;
     }
 }
-
 </style>
 </head>
 <body>
 
-<!-- Contenuti fullscreen -->
 <img id="letterbox" src="letterboxbasic.png" alt="Letterbox Basic">
 <video id="video" src="animazione.mp4" style="display:none;"></video>
 <img id="openImage" src="open.png" alt="Open Image" style="display:none;">
 
-<!-- Pulsanti tipo vignetta -->
 <button id="startBtn" class="vignette-btn"></button>
 <button id="openBtn" class="vignette-btn"></button>
 
-<!-- Messaggio finale -->
 <div id="finalMessage"></div>
 
-<!-- Input messaggio -->
 <div id="messageInputContainer">
     <input type="text" id="userMessage" placeholder="Leave a message..." maxlength="200">
     <button id="sendMessage">Send</button>
     <button id="noThanks">No Thanks</button>
 </div>
 
-<!-- Audio -->
 <audio id="openLetterBoxAudio" src="openletterbox.wav"></audio>
 <audio id="fairyAudio" src="fairy.wav"></audio>
 
@@ -158,7 +147,7 @@ const openLetterBoxAudio = document.getElementById('openLetterBoxAudio');
 const fairyAudio = document.getElementById('fairyAudio');
 
 const phrases = [
-       "Hey, just thinking about you!",
+    "Hey, just thinking about you!",
     "Hope your day is going great!",
     "You always make me laugh!",
     "Can’t wait to see you again soon.",
@@ -185,7 +174,7 @@ function containsBannedWords(text) {
   return bannedWords.some(word => word.endsWith("*") ? lowerText.includes(word.slice(0,-1)) : lowerText.includes(word));
 }
 
-let userMessage = null;
+let userMessage = localStorage.getItem('savedMessage') || null;
 
 // Macchina da scrivere
 function typeWriter(element, text, speed = 100, callback=null) {
@@ -257,6 +246,7 @@ openBtn.addEventListener('click',()=>{
 
     // Mostra input messaggio
     messageInputContainer.style.display='block';
+    if(userMessage) userMessageInput.value = userMessage;
 });
 
 // Limit 20 parole
@@ -279,12 +269,16 @@ sendMessage.addEventListener('click',()=>{
         return;
     }
     userMessage = input;
+
+    // Salva in localStorage
+    localStorage.setItem('savedMessage', userMessage);
+
     resetAnimation();
 });
 
 // No Thanks
 noThanks.addEventListener('click',()=>{
-    userMessage = null;
+    // non cancelliamo il messaggio salvato
     resetAnimation();
 });
 </script>
