@@ -70,13 +70,25 @@ img, video {
     margin: 0 5px;
     cursor: pointer;
 }
-
 /* Mobile */
 @media screen and (max-width:1000px){
     .vignette-btn { font-size:50px; padding:12px 18px; }
     #startBtn { top: 15%; left: 50%; transform: translate(-50%, -50%); }
     #openBtn { top: 52%; left: 50%; transform: translate(-50%, -50%); }
-    #finalMessage { font-size: 65px; padding:50px; top:45%; left:50%; transform: translate(-50%, -50%); white-space: normal; max-width: 90%; word-wrap: break-word; text-align:center;}
+
+    /* Final message ottimizzato per mobile */
+    #finalMessage { 
+        font-size: 6vw;      /* font proporzionale alla larghezza dello schermo */
+        padding: 20px;        /* padding ridotto */
+        top: 45%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        white-space: normal; 
+        max-width: 90%; 
+        word-wrap: break-word; 
+        text-align:center;
+    }
+
     #userMessage { width: 400px; font-size: 55px;  padding: 15px;}
     #messageButtons button { font-size: 30px; padding: 20px 25px; }
 
@@ -85,6 +97,7 @@ img, video {
         width: 80%;
     }
 }
+
 </style>
 </head>
 <body>
@@ -242,4 +255,3 @@ function resetAnimation(){
 </script>
 </body>
 </html>
-
