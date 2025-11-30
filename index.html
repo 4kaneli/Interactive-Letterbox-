@@ -8,8 +8,8 @@
 img, video {
     position: fixed;
     top: 0;
-    left: -80px;
-    width: calc(100vw + 100px);
+    left: 0;
+    width: 100vw;
     height: 100vh;
     object-fit: cover;
     z-index: 1;
@@ -36,8 +36,8 @@ img, video {
 .vignette-btn:hover { background-color: rgba(0,0,0,0.8); }
 
 /* Pulsanti desktop */
-#startBtn { top: 20%; left: 48%; transform: translate(-50%, -50%); }
-#openBtn { top: 50%; left: 49%; transform: translate(-50%, -50%); display: none; }
+#startBtn { top: 20%; left: 50%; transform: translate(-50%, -50%); }
+#openBtn { top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; }
 
 /* Messaggio finale desktop */
 #finalMessage {
@@ -81,42 +81,21 @@ img, video {
     #userMessage { width: 200px; font-size: 24px; }
     #sendMessage, #noThanks { font-size: 24px; padding: 8px 15px; }
 
-    /* Contenitore mobile input+bottoni */
     #messageInputContainer {
         top: 68%;
         width: 80%;
-    }
-    #userMessage { width: 100%; font-size: 40px; margin-bottom: 10px; padding: 10px; }
-    #messageInputContainer button { font-size: 42px; padding: 10px 12px; margin: 0 15px; }
-}
-@media screen and (max-width:1000px){
-    #messageInputContainer {
-        top: 70%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-    }
-    #userMessage {
-        width: 100%;
-        font-size: 40px;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
-    #messageInputContainer button {
-        font-size: 42px;
-        padding: 20px 30px;
-        margin: 0 25px;
-        cursor: pointer;
     }
 }
 </style>
 </head>
 <body>
 
+<!-- Contenuti fullscreen -->
 <img id="letterbox" src="letterboxbasic.png" alt="Letterbox Basic">
 <video id="video" src="animazione.mp4" style="display:none;"></video>
 <img id="openImage" src="open.png" alt="Open Image" style="display:none;">
 
+<!-- Pulsanti -->
 <button id="startBtn" class="vignette-btn"></button>
 <button id="openBtn" class="vignette-btn"></button>
 
@@ -174,6 +153,7 @@ function containsBannedWords(text) {
   return bannedWords.some(word => word.endsWith("*") ? lowerText.includes(word.slice(0,-1)) : lowerText.includes(word));
 }
 
+// Recupera messaggio salvato da localStorage
 let userMessage = localStorage.getItem('savedMessage') || null;
 
 // Macchina da scrivere
